@@ -2,13 +2,18 @@ package routers
 
 import (
 	v1 "application/api/v1"
+
 	"github.com/gin-gonic/gin"
 )
 
 // InitRouter 初始化路由信息
 func InitRouter() *gin.Engine {
 	r := gin.Default()
-
+	// api for admin
+	apitest := r.Group("/admin/acl")
+	{
+		apitest.POST("/login", v1.Login)
+	}
 	apiV1 := r.Group("/api/v1")
 	{
 		apiV1.GET("/hello", v1.Hello)
