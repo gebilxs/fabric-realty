@@ -17,7 +17,7 @@ type Conf struct {
 func (conf *Conf) Parse(fg *flag.FlagSet) (*Conf, error) {
 	fg.StringVar(&conf.Host, "mysql_host", "127.0.0.1:3306", "mysql的主机地址")
 	fg.StringVar(&conf.Username, "mysql_user", "root", "mysql的用户名")
-	fg.StringVar(&conf.Passwd, "mysql_passwd", "123456", "mysql的密码")
+	fg.StringVar(&conf.Passwd, "mysql_passwd", "admin123", "mysql的密码")
 	fg.StringVar(&conf.DB, "mysql_DB", "fabric", "mysql的DB")
 	// 执行参数解析
 	if err := fg.Parse(os.Args[1:]); err != nil {

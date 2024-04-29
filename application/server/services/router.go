@@ -1,22 +1,19 @@
-package routers
+package services
 
 import (
 	v1 "application/api/v1"
-
-	"github.com/gin-gonic/gin"
+	"application/pkg/middleware"
 )
 
 // InitRouter 初始化路由信息
-func InitRouter() *gin.Engine {
-	r := gin.Default()
-	// api for admin
-	apitest := r.Group("/admin/acl")
+func (fab *FabricSrv) InitRouter() {
+	fab.app.Use(middleware.Core())
+	apiV1 := fab.app.Group("/api/v1")
 	{
-		apitest.POST("/login", v1.Login)
-	}
-	apiV1 := r.Group("/api/v1")
-	{
-		apiV1.GET("/hello", v1.Hello)
+		// 登陆及人员管理
+		apiV1.GET("/login_list", fab.GetLoginList)
+		// apiV1.POST("/login_add", fab.AddLogin)
+		// ------
 		apiV1.POST("/queryAccountList", v1.QueryAccountList)
 		apiV1.POST("/createRealEstate", v1.CreateRealEstate)
 		apiV1.POST("/queryRealEstateList", v1.QueryRealEstateList)
@@ -30,5 +27,4 @@ func InitRouter() *gin.Engine {
 		apiV1.POST("/queryDonatingListByGrantee", v1.QueryDonatingListByGrantee)
 		apiV1.POST("/updateDonating", v1.UpdateDonating)
 	}
-	return r
 }

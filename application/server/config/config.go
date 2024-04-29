@@ -1,15 +1,17 @@
 package config
 
 import (
-	mysql "application/pkg/config"
+	mysql "application/pkg/config/mysql"
+	web "application/pkg/config/web"
 	"os"
 
 	"github.com/namsral/flag"
 )
 
 type Config struct {
-	IsDebug bool        `json:"isDeubg"`
-	Mysql   *mysql.Conf `json:"orm"`
+	IsDebug   bool        `json:"isDeubg"`
+	Mysql     *mysql.Conf `json:"orm"`
+	WebEngine *web.Conf   `json:"webEngine"`
 }
 
 const (
@@ -23,6 +25,11 @@ func InitConfig() (conf *Config, err error) {
 	fg.BoolVar(&conf.IsDebug, "isDebug", false, "isDebug")
 	// mysql配置
 	conf.Mysql, err = new(mysql.Conf).Parse(fg)
+	if err != nil {
+		return nil, err
+	}
+	// 服务配置
+	conf.WebEngine, err = new(web.Conf).Parse(fg)
 	if err != nil {
 		return nil, err
 	}

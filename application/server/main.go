@@ -1,41 +1,33 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"net/http"
-	"time"
+	"context"
+	"syscall"
 
-	"application/blockchain"
 	"application/config"
-	"application/pkg/cron"
+	"application/model"
 	orm "application/pkg/mysql"
-	"application/routers"
 
+	"application/services"
+	"os/signal"
+
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
 func main() {
-	timeLocal, err := time.LoadLocation("Asia/Shanghai")
-	if err != nil {
-		log.Printf("时区设置失败 %s", err)
-	}
-	time.Local = timeLocal
+	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM, syscall.SIGHUP, syscall.SIGQUIT)
+	defer stop()
 
-	blockchain.Init()
-	go cron.Init()
-
-	endPoint := fmt.Sprintf("0.0.0.0:%d", 8888)
-	server := &http.Server{
-		Addr:    endPoint,
-		Handler: routers.InitRouter(),
-	}
 	// 初始化 config 配置
 	conf, err := config.InitConfig()
 	if err != nil {
 		panic(err)
 	}
-	//
+	// 增加web服务
+	app := gin.Default()
+
+	// 增加orm连接
 	orm, err := orm.NewOrm(&orm.MysqlConfig{
 		Host:     conf.Mysql.Host,
 		Username: conf.Mysql.Username,
@@ -46,9 +38,20 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	// 注册登陆连接对象
+	loginorm, err := model.NewLoginTaskManager(orm)
+	if err != nil {
+		panic(err)
+	}
 
-	log.Printf("[info] start http server listening %s", endPoint)
-	if err := server.ListenAndServe(); err != nil {
-		log.Printf("start http server failed %s", err)
+	// 路线信息连接对象
+	alignmentorm, err := model.NewAlignmentManager(orm)
+	if err != nil {
+		println("alignmentorm error")
+	}
+	srv := services.NewFabricSrv(ctx, conf, app, loginorm, alignmentorm)
+
+	if err != srv.Start(ctx) {
+		panic(err)
 	}
 }
