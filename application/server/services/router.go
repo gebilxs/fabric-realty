@@ -12,8 +12,23 @@ func (fab *FabricSrv) InitRouter() {
 	{
 		// 登陆及人员管理
 		apiV1.GET("/login_list", fab.GetLoginList)
-		// apiV1.POST("/login_add", fab.AddLogin)
-		// ------
+		apiV1.POST("/login_add", fab.AddLogin)
+		apiV1.POST("/login", fab.Login)
+		apiV1.PUT("/login", fab.UpdateLogin)
+		apiV1.DELETE("/login", fab.DeleteLogin)
+		// 道路信息
+		apiV1.GET("/alignment_list", fab.GetAlignmentList)
+		apiV1.POST("/alignment", fab.AddAlignment)
+		apiV1.PUT("/alignment", fab.UpdateAlignment)
+		apiV1.DELETE("/alignment", fab.DeleteAlignment)
+		// 音乐信息
+		apiV1.GET("/music_list", fab.GetMusicList)
+		apiV1.POST("/music", fab.AddMusic)
+		apiV1.PUT("/music", fab.UpdateMusic)
+		apiV1.DELETE("/music", fab.DeleteMusic)
+		apiV1.GET("/music_download", fab.DownloadMusic)
+
+		// ------ 区块连相关操作 ---------D
 		apiV1.POST("/queryAccountList", v1.QueryAccountList)
 		apiV1.POST("/createRealEstate", v1.CreateRealEstate)
 		apiV1.POST("/queryRealEstateList", v1.QueryRealEstateList)

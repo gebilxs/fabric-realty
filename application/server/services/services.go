@@ -8,6 +8,7 @@ import (
 	"context"
 	"log"
 
+	"application/pkg/gsp"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -17,20 +18,33 @@ type FabricSrv struct {
 	ctx          context.Context
 	conf         *config.Config
 	app          *gin.Engine
+	gsp          *gsp.GSP
 	loginorm     *model.LoginAndRegisterManager
 	alignmentorm *model.AlignmentManager
+	musicorm     *model.MusicManager
+	carorm       *model.CarManager
+	actionorm    *model.ActionManager
+	accidentorm  *model.AccidentManager
 }
 
 type OptionFunc func(*FabricSrv)
 
-func NewFabricSrv(ctx context.Context, conf *config.Config, app *gin.Engine, loginorm *model.LoginAndRegisterManager,
-	alignmentorm *model.AlignmentManager, ops ...OptionFunc) *FabricSrv {
+func NewFabricSrv(ctx context.Context, conf *config.Config, app *gin.Engine, gsp *gsp.GSP,
+	loginorm *model.LoginAndRegisterManager,
+	alignmentorm *model.AlignmentManager, musicorm *model.MusicManager, carorm *model.CarManager,
+	actionorm *model.ActionManager, accidentorm *model.AccidentManager,
+	ops ...OptionFunc) *FabricSrv {
 	fabsrv := &FabricSrv{
 		ctx:          ctx,
 		conf:         conf,
 		app:          app,
+		gsp:          gsp,
 		loginorm:     loginorm,
 		alignmentorm: alignmentorm,
+		musicorm:     musicorm,
+		carorm:       carorm,
+		actionorm:    actionorm,
+		accidentorm:  accidentorm,
 	}
 	for _, op := range ops {
 		op(fabsrv)

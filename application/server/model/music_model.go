@@ -56,3 +56,37 @@ func NewMusicManager(orm *orm.Client, ops ...MusicManagerWithOption) (*MusicMana
 	}
 	return musicorm, nil
 }
+
+func (musicorm *MusicManager) QueryCount(ctx context.Context, query *WhereQuery) (int64, error) {
+	var count int64
+	if err := musicorm.orm.DB().Model(&Music{}).Where(query.Query, query.Args...).Count(&count).Error; err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
+func (musicorm *MusicManager) QueryList(ctx context.Context, query *WhereQuery,
+	ops ...QueryWithOption) (list []*Music, err error) {
+	list = []*Music{}
+	db := musicorm.orm.DB().Where(query.Query, query.Args...).Order("created_at DESC")
+	for _, op := range ops {
+		db = op(db)
+	}
+	err = db.Find(&list).Error
+	return
+}
+
+// 注册用户
+func (musicorm *MusicManager) Insert(ctx context.Context, item *Music) error {
+	return musicorm.orm.DB().Create(item).Error
+}
+
+// 更新用户
+func (musicorm *MusicManager) Update(ctx context.Context, ID uint, item *Music) error {
+	return musicorm.orm.DB().Model(&Music{}).Where("id = ?", ID).Updates(item).Error
+}
+
+// 删除用户
+func (musicorm *MusicManager) Delete(ctx context.Context, ID uint) error {
+	return musicorm.orm.DB().Where("id = ?", ID).Delete(&Music{}).Error
+}

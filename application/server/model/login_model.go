@@ -69,13 +69,28 @@ func (loginorm *LoginAndRegisterManager) QueryCount(ctx context.Context, query *
 	return count, nil
 }
 
-func (etm *LoginAndRegisterManager) QueryList(ctx context.Context, query *WhereQuery,
+func (loginorm *LoginAndRegisterManager) QueryList(ctx context.Context, query *WhereQuery,
 	ops ...QueryWithOption) (list []*LoginAndRegister, err error) {
 	list = []*LoginAndRegister{}
-	db := etm.orm.DB().Where(query.Query, query.Args...).Order("created_at DESC")
+	db := loginorm.orm.DB().Where(query.Query, query.Args...).Order("created_at DESC")
 	for _, op := range ops {
 		db = op(db)
 	}
 	err = db.Find(&list).Error
 	return
+}
+
+// 注册用户
+func (loginorm *LoginAndRegisterManager) Insert(ctx context.Context, item *LoginAndRegister) error {
+	return loginorm.orm.DB().Create(item).Error
+}
+
+// 更新用户
+func (loginorm *LoginAndRegisterManager) Update(ctx context.Context, ID uint, item *LoginAndRegister) error {
+	return loginorm.orm.DB().Model(&LoginAndRegister{}).Where("id = ?", ID).Updates(item).Error
+}
+
+// 删除用户
+func (loginorm *LoginAndRegisterManager) Delete(ctx context.Context, ID uint) error {
+	return loginorm.orm.DB().Where("id = ?", ID).Delete(&LoginAndRegister{}).Error
 }

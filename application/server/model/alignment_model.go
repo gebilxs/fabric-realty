@@ -61,3 +61,37 @@ func NewAlignmentManager(orm *orm.Client, ops ...AlignmentManagerWithOption) (*A
 	}
 	return alignmentorm, nil
 }
+
+func (alignmentorm *AlignmentManager) QueryCount(ctx context.Context, query *WhereQuery) (int64, error) {
+	var count int64
+	if err := alignmentorm.orm.DB().Model(&Alignment{}).Where(query.Query, query.Args...).Count(&count).Error; err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
+func (alignmentorm *AlignmentManager) QueryList(ctx context.Context, query *WhereQuery,
+	ops ...QueryWithOption) (list []*Alignment, err error) {
+	list = []*Alignment{}
+	db := alignmentorm.orm.DB().Where(query.Query, query.Args...).Order("created_at DESC")
+	for _, op := range ops {
+		db = op(db)
+	}
+	err = db.Find(&list).Error
+	return
+}
+
+// 注册用户
+func (alignmentorm *AlignmentManager) Insert(ctx context.Context, item *Alignment) error {
+	return alignmentorm.orm.DB().Create(item).Error
+}
+
+// 更新用户
+func (alignmentorm *AlignmentManager) Update(ctx context.Context, ID uint, item *Alignment) error {
+	return alignmentorm.orm.DB().Model(&Alignment{}).Where("id = ?", ID).Updates(item).Error
+}
+
+// 删除用户
+func (alignmentorm *AlignmentManager) Delete(ctx context.Context, ID uint) error {
+	return alignmentorm.orm.DB().Where("id = ?", ID).Delete(&Alignment{}).Error
+}

@@ -1,6 +1,7 @@
 package config
 
 import (
+	gsp "application/pkg/config/gsp"
 	mysql "application/pkg/config/mysql"
 	web "application/pkg/config/web"
 	"os"
@@ -12,6 +13,7 @@ type Config struct {
 	IsDebug   bool        `json:"isDeubg"`
 	Mysql     *mysql.Conf `json:"orm"`
 	WebEngine *web.Conf   `json:"webEngine"`
+	GSP       *gsp.Conf   `json:"gsp"`
 }
 
 const (
@@ -30,6 +32,11 @@ func InitConfig() (conf *Config, err error) {
 	}
 	// 服务配置
 	conf.WebEngine, err = new(web.Conf).Parse(fg)
+	if err != nil {
+		return nil, err
+	}
+	// 解析对象存储
+	conf.GSP, err = new(gsp.Conf).Parse(fg)
 	if err != nil {
 		return nil, err
 	}
