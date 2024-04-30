@@ -1,16 +1,6 @@
 > 🚀 本项目使用 Hyperledger Fabric 构建底层区块链网络, go 编写智能合约，应用层使用 gin+fabric-sdk-go ，前端使用
 > vue+element-ui
 
-如果想要联系我，可以关注我的公众号【gopher云原生】
-
-![gopher云原生](https://user-images.githubusercontent.com/55381228/221747734-13783ce6-1969-4c10-acd6-833f5046aa85.png)
-
-## 教程
-
-[万字长文，教你用go开发区块链应用](https://mp.weixin.qq.com/s/yDmGwfRjXxDJfgv1d0p3Ig)
-
-> 🤔 有任何疑问，请先看完本篇文章。本项目涉及的知识点都有在文章中进行说明
-
 ## 手动部署
 
 环境要求： 安装了 Docker 和 Docker Compose 的 Linux 或 Mac OS 环境

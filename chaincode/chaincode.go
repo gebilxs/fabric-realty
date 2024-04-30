@@ -49,12 +49,15 @@ func (t *BlockChainRealEstate) Invoke(stub shim.ChaincodeStubInterface) pb.Respo
 	switch funcName {
 	case "hello":
 		return api.Hello(stub, args)
+	// 查询现在有多少个账户和额度
 	case "queryAccountList":
 		return api.QueryAccountList(stub, args)
+	// 通过区块链创建车辆交易信息
 	case "createRealEstate":
 		return api.CreateRealEstate(stub, args)
 	case "queryRealEstateList":
 		return api.QueryRealEstateList(stub, args)
+
 	case "createSelling":
 		return api.CreateSelling(stub, args)
 	case "createSellingByBuy":

@@ -19,26 +19,26 @@ func CreateRealEstate(stub shim.ChaincodeStubInterface, args []string) pb.Respon
 	}
 	accountId := args[0] //accountId用于验证是否为管理员
 	proprietor := args[1]
-	totalArea := args[2]
-	livingSpace := args[3]
-	if accountId == "" || proprietor == "" || totalArea == "" || livingSpace == "" {
+	ContentPrice := args[2]
+	MessagePrice := args[3]
+	if accountId == "" || proprietor == "" || ContentPrice == "" || MessagePrice == "" {
 		return shim.Error("参数存在空值")
 	}
 	if accountId == proprietor {
 		return shim.Error("操作人应为管理员且与所有人不能相同")
 	}
 	// 参数数据格式转换
-	var formattedTotalArea float64
-	if val, err := strconv.ParseFloat(totalArea, 64); err != nil {
-		return shim.Error(fmt.Sprintf("totalArea参数格式转换出错: %s", err))
+	var formattedContentPrice float64
+	if val, err := strconv.ParseFloat(ContentPrice, 64); err != nil {
+		return shim.Error(fmt.Sprintf("ContentPrice参数格式转换出错: %s", err))
 	} else {
-		formattedTotalArea = val
+		formattedContentPrice = val
 	}
-	var formattedLivingSpace float64
-	if val, err := strconv.ParseFloat(livingSpace, 64); err != nil {
-		return shim.Error(fmt.Sprintf("livingSpace参数格式转换出错: %s", err))
+	var formattedMessagePrice float64
+	if val, err := strconv.ParseFloat(MessagePrice, 64); err != nil {
+		return shim.Error(fmt.Sprintf("MessagePrice参数格式转换出错: %s", err))
 	} else {
-		formattedLivingSpace = val
+		formattedMessagePrice = val
 	}
 	//判断是否管理员操作
 	resultsAccount, err := utils.GetStateByPartialCompositeKeys(stub, model.AccountKey, []string{accountId})
@@ -61,8 +61,8 @@ func CreateRealEstate(stub shim.ChaincodeStubInterface, args []string) pb.Respon
 		RealEstateID: stub.GetTxID()[:16],
 		Proprietor:   proprietor,
 		Encumbrance:  false,
-		TotalArea:    formattedTotalArea,
-		LivingSpace:  formattedLivingSpace,
+		ContentPrice: formattedContentPrice,
+		MessagePrice: formattedMessagePrice,
 	}
 	// 写入账本
 	if err := utils.WriteLedger(realEstate, stub, model.RealEstateKey, []string{realEstate.Proprietor, realEstate.RealEstateID}); err != nil {
@@ -77,7 +77,7 @@ func CreateRealEstate(stub shim.ChaincodeStubInterface, args []string) pb.Respon
 	return shim.Success(realEstateByte)
 }
 
-// QueryRealEstateList 查询房地产(可查询所有，也可根据所有人查询名下房产)
+// QueryRealEstateList 查询房地产(可查询所有，也可根据所有人查询名下信息交易内容)
 func QueryRealEstateList(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	var realEstateList []model.RealEstate
 	results, err := utils.GetStateByPartialCompositeKeys2(stub, model.RealEstateKey, args)

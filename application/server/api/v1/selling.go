@@ -13,14 +13,14 @@ import (
 )
 
 type SellingRequestBody struct {
-	ObjectOfSale string  `json:"objectOfSale"` //销售对象(正在出售的房地产RealEstateID)
+	ObjectOfSale string  `json:"objectOfSale"` //销售对象(正在出售的信息RealEstateID)
 	Seller       string  `json:"seller"`       //发起销售人、卖家(卖家AccountId)
 	Price        float64 `json:"price"`        //价格
 	SalePeriod   int     `json:"salePeriod"`   //智能合约的有效期(单位为天)
 }
 
 type SellingByBuyRequestBody struct {
-	ObjectOfSale string `json:"objectOfSale"` //销售对象(正在出售的房地产RealEstateID)
+	ObjectOfSale string `json:"objectOfSale"` //销售对象(正在出售的信息RealEstateID)
 	Seller       string `json:"seller"`       //发起销售人、卖家(卖家AccountId)
 	Buyer        string `json:"buyer"`        //买家(买家AccountId)
 }
@@ -34,7 +34,7 @@ type SellingListQueryByBuyRequestBody struct {
 }
 
 type UpdateSellingRequestBody struct {
-	ObjectOfSale string `json:"objectOfSale"` //销售对象(正在出售的房地产RealEstateID)
+	ObjectOfSale string `json:"objectOfSale"` //销售对象(正在出售的信息RealEstateID)
 	Seller       string `json:"seller"`       //发起销售人、卖家(卖家AccountId)
 	Buyer        string `json:"buyer"`        //买家(买家AccountId)
 	Status       string `json:"status"`       //需要更改的状态

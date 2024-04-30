@@ -44,16 +44,18 @@ func (fab *FabricSrv) InitRouter() {
 		apiV1.DELETE("/accident", fab.DeleteAccident)
 
 		// ------ 区块连相关操作 ---------D
+		// 显示有多少个账户和他们的账户额度
 		apiV1.POST("/queryAccountList", v1.QueryAccountList)
+		// 创建信息交易内容
 		apiV1.POST("/createRealEstate", v1.CreateRealEstate)
-
 		apiV1.POST("/queryRealEstateList", v1.QueryRealEstateList)
+		// 创建信息交易具体交易
 		apiV1.POST("/createSelling", v1.CreateSelling)
 		apiV1.POST("/createSellingByBuy", v1.CreateSellingByBuy)
-
 		apiV1.POST("/querySellingList", v1.QuerySellingList)
 		apiV1.POST("/querySellingListByBuyer", v1.QuerySellingListByBuyer)
 		apiV1.POST("/updateSelling", v1.UpdateSelling)
+		// 捐赠
 		apiV1.POST("/createDonating", v1.CreateDonating)
 		apiV1.POST("/queryDonatingList", v1.QueryDonatingList)
 		apiV1.POST("/queryDonatingListByGrantee", v1.QueryDonatingListByGrantee)

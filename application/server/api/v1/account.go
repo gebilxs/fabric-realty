@@ -19,6 +19,15 @@ type AccountRequestBody struct {
 	Args []AccountIdBody `json:"args"`
 }
 
+// 查询json格式
+//
+//	{
+//	  "args": [
+//	    {
+//	      "accountId": "6b86b273ff34"
+//	    }
+//	   ]
+//	}
 func QueryAccountList(c *gin.Context) {
 	appG := app.Gin{C: c}
 	body := new(AccountRequestBody)

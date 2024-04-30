@@ -18,7 +18,7 @@ type Response struct {
 
 func (g *Gin) Response(httpCode int, errMsg string, data interface{}) {
 	g.C.JSON(httpCode, Response{
-		Code: httpCode,
+		Code: 0,
 		Msg:  errMsg,
 		Data: data,
 	})
