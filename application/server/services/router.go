@@ -46,9 +46,11 @@ func (fab *FabricSrv) InitRouter() {
 		// ------ 区块连相关操作 ---------D
 		apiV1.POST("/queryAccountList", v1.QueryAccountList)
 		apiV1.POST("/createRealEstate", v1.CreateRealEstate)
+
 		apiV1.POST("/queryRealEstateList", v1.QueryRealEstateList)
 		apiV1.POST("/createSelling", v1.CreateSelling)
 		apiV1.POST("/createSellingByBuy", v1.CreateSellingByBuy)
+
 		apiV1.POST("/querySellingList", v1.QuerySellingList)
 		apiV1.POST("/querySellingListByBuyer", v1.QuerySellingListByBuyer)
 		apiV1.POST("/updateSelling", v1.UpdateSelling)
