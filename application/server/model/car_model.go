@@ -57,3 +57,37 @@ func NewCarManager(orm *orm.Client, ops ...CarManagerWithOption) (*CarManager, e
 	}
 	return carorm, nil
 }
+
+func (carorm *CarManager) QueryCount(ctx context.Context, query *WhereQuery) (int64, error) {
+	var count int64
+	if err := carorm.orm.DB().Model(&Car{}).Where(query.Query, query.Args...).Count(&count).Error; err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
+func (carorm *CarManager) QueryList(ctx context.Context, query *WhereQuery,
+	ops ...QueryWithOption) (list []*Car, err error) {
+	list = []*Car{}
+	db := carorm.orm.DB().Where(query.Query, query.Args...).Order("created_at DESC")
+	for _, op := range ops {
+		db = op(db)
+	}
+	err = db.Find(&list).Error
+	return
+}
+
+// 注册用户
+func (carorm *CarManager) Insert(ctx context.Context, item *Car) error {
+	return carorm.orm.DB().Create(item).Error
+}
+
+// 更新用户
+func (carorm *CarManager) Update(ctx context.Context, ID uint, item *Car) error {
+	return carorm.orm.DB().Model(&Car{}).Where("id = ?", ID).Updates(item).Error
+}
+
+// 删除用户
+func (carorm *CarManager) Delete(ctx context.Context, ID uint) error {
+	return carorm.orm.DB().Where("id = ?", ID).Delete(&Car{}).Error
+}

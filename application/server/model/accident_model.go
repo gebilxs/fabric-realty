@@ -59,3 +59,37 @@ func NewAccidentManager(orm *orm.Client, ops ...AccidentManagerWithOption) (*Acc
 	}
 	return accidentorm, nil
 }
+
+func (accidentorm *AccidentManager) QueryCount(ctx context.Context, query *WhereQuery) (int64, error) {
+	var count int64
+	if err := accidentorm.orm.DB().Model(&Accident{}).Where(query.Query, query.Args...).Count(&count).Error; err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
+func (accidentorm *AccidentManager) QueryList(ctx context.Context, query *WhereQuery,
+	ops ...QueryWithOption) (list []*Accident, err error) {
+	list = []*Accident{}
+	db := accidentorm.orm.DB().Where(query.Query, query.Args...).Order("created_at DESC")
+	for _, op := range ops {
+		db = op(db)
+	}
+	err = db.Find(&list).Error
+	return
+}
+
+// 注册用户
+func (accidentorm *AccidentManager) Insert(ctx context.Context, item *Accident) error {
+	return accidentorm.orm.DB().Create(item).Error
+}
+
+// 更新用户
+func (accidentorm *AccidentManager) Update(ctx context.Context, ID uint, item *Accident) error {
+	return accidentorm.orm.DB().Model(&Accident{}).Where("id = ?", ID).Updates(item).Error
+}
+
+// 删除用户
+func (accidentorm *AccidentManager) Delete(ctx context.Context, ID uint) error {
+	return accidentorm.orm.DB().Where("id = ?", ID).Delete(&Accident{}).Error
+}

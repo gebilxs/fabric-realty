@@ -27,6 +27,21 @@ func (fab *FabricSrv) InitRouter() {
 		apiV1.PUT("/music", fab.UpdateMusic)
 		apiV1.DELETE("/music", fab.DeleteMusic)
 		apiV1.GET("/music_download", fab.DownloadMusic)
+		// 车辆信息
+		apiV1.GET("/car_list", fab.GetCarList)
+		apiV1.POST("/car", fab.AddCar)
+		apiV1.PUT("/car", fab.UpdateCar)
+		apiV1.DELETE("/car", fab.DeleteCar)
+		// 行为信息
+		apiV1.GET("/action_list", fab.GetActionList)
+		apiV1.POST("/action", fab.AddAction)
+		apiV1.PUT("/action", fab.UpdateAction)
+		apiV1.DELETE("/action", fab.DeleteAction)
+		// 事故信息
+		apiV1.GET("/accident_list", fab.GetAccidentList)
+		apiV1.POST("/accident", fab.AddAccident)
+		apiV1.PUT("/accident", fab.UpdateAccident)
+		apiV1.DELETE("/accident", fab.DeleteAccident)
 
 		// ------ 区块连相关操作 ---------D
 		apiV1.POST("/queryAccountList", v1.QueryAccountList)

@@ -57,3 +57,37 @@ func NewActionManager(orm *orm.Client, ops ...ActionManagerWithOption) (*ActionM
 	}
 	return actionorm, nil
 }
+
+func (actionorm *ActionManager) QueryCount(ctx context.Context, query *WhereQuery) (int64, error) {
+	var count int64
+	if err := actionorm.orm.DB().Model(&Action{}).Where(query.Query, query.Args...).Count(&count).Error; err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
+func (actionorm *ActionManager) QueryList(ctx context.Context, query *WhereQuery,
+	ops ...QueryWithOption) (list []*Action, err error) {
+	list = []*Action{}
+	db := actionorm.orm.DB().Where(query.Query, query.Args...).Order("created_at DESC")
+	for _, op := range ops {
+		db = op(db)
+	}
+	err = db.Find(&list).Error
+	return
+}
+
+// 注册用户
+func (actionorm *ActionManager) Insert(ctx context.Context, item *Action) error {
+	return actionorm.orm.DB().Create(item).Error
+}
+
+// 更新用户
+func (actionorm *ActionManager) Update(ctx context.Context, ID uint, item *Action) error {
+	return actionorm.orm.DB().Model(&Action{}).Where("id = ?", ID).Updates(item).Error
+}
+
+// 删除用户
+func (actionorm *ActionManager) Delete(ctx context.Context, ID uint) error {
+	return actionorm.orm.DB().Where("id = ?", ID).Delete(&Action{}).Error
+}

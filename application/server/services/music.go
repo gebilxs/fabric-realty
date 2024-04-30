@@ -24,6 +24,7 @@ type ReqGetMusicList struct {
 }
 
 type RespMusicList struct {
+	ID          uint   `json:"id"`
 	MusicName   string `json:"music_name"`
 	MusicKey    string `json:"music_key"`
 	MusicAuthor string `json:"music_author"`
@@ -59,6 +60,7 @@ func (fab *FabricSrv) GetMusicList(ctx *gin.Context) {
 	items := make([]*RespMusicList, 0)
 	for _, item := range list {
 		items = append(items, &RespMusicList{
+			ID:          item.ID,
 			MusicName:   item.MusicName,
 			MusicKey:    item.MusicKey,
 			MusicAuthor: item.MusicAuthor,

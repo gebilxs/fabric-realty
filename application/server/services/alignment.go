@@ -26,6 +26,7 @@ type ReqAlignmentList struct {
 }
 
 type RespAlignmentList struct {
+	ID            uint   `json:"id"`
 	RoadName      string `json:"road_name"`
 	RoadType      string `json:"road_type"`
 	Length        int    `json:"length"`
@@ -73,6 +74,7 @@ func (fab *FabricSrv) GetAlignmentList(ctx *gin.Context) {
 	items := make([]*RespAlignmentList, 0)
 	for _, item := range list {
 		items = append(items, &RespAlignmentList{
+			ID:            item.ID,
 			RoadName:      item.RoadName,
 			RoadType:      item.RoadType,
 			Length:        item.Length,
