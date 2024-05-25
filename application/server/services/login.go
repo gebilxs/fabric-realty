@@ -42,12 +42,12 @@ func (fab *FabricSrv) Login(ctx *gin.Context) {
 	if err != nil {
 		fmt.Println("Error encrypting password:", err)
 		return
-	} else {
-		ctx.JSON(http.StatusOK, app.ResponseError("查询成功", "密码错误").JSON())
 	}
 	if encryptedPassword == list[0].Password {
 		ctx.JSON(http.StatusOK, app.ResponseOK("查询成功", "登陆成功").JSON())
 		return
+	} else {
+		ctx.JSON(http.StatusOK, app.ResponseError("查询成功", "密码错误").JSON())
 	}
 }
 
@@ -65,15 +65,15 @@ type ReqLoginList struct {
 }
 
 type RespLoginList struct {
-	ID         uint   `json:"id"`         // ID
-	CreateTime int64  `json:"createTime"` // 创建时间
-	Username   string `json:"username"`   // 用户名
-	NickName   string `json:"nickName"`   // 昵称
-	Phone      string `json:"phone"`      // 手机号
-	Email      string `json:"email"`      // 邮箱
-	Sex        string `json:"sex"`        // 性别
-	Address    string `json:"address"`    // 地址
-	Age        int    `json:"age"`        // 年龄
+	ID         uint   `json:"id"`          // ID
+	CreateTime int64  `json:"create_time"` // 创建时间
+	Username   string `json:"username"`    // 用户名
+	NickName   string `json:"nickName"`    // 昵称
+	Phone      string `json:"phone"`       // 手机号
+	Email      string `json:"email"`       // 邮箱
+	Sex        string `json:"sex"`         // 性别
+	Address    string `json:"address"`     // 地址
+	Age        int    `json:"age"`         // 年龄
 }
 
 // 分页查询
@@ -81,6 +81,7 @@ func (fab *FabricSrv) GetLoginList(ctx *gin.Context) {
 	req := &ReqLoginList{
 		PageIndex: cast.ToInt(ctx.DefaultQuery("pageIndex", "1")),
 		PageSize:  cast.ToInt(ctx.DefaultQuery("pageSize", "10")),
+		Username:  ctx.Query("username"),
 		NickName:  ctx.Query("nickName"),
 		Phone:     ctx.Query("phone"),
 		Email:     ctx.Query("email"),
@@ -237,7 +238,7 @@ func (fab *FabricSrv) AddLogin(ctx *gin.Context) {
 type ReqUpdateLogin struct {
 	ID       uint   `json:"id" validate:"required"`       // ID
 	Username string `json:"username" validate:"required"` // 用户名
-	Password string `json:"password" validate:"required"` // 密码
+	Password string `json:"password"`                     // 密码
 	NickName string `json:"nickName"`                     // 昵称
 	Phone    string `json:"phone"`                        // 手机号
 	Email    string `json:"email"`                        // 邮箱

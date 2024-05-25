@@ -37,7 +37,7 @@ type RespAlignmentList struct {
 	BeLatitudes   string `json:"be_latitudes"`
 	EndLongitudes string `json:"end_longitudes"`
 	EndLatitudes  string `json:"end_latitudes"`
-	CreateTime    int64  `json:"createTime"`
+	CreateTime    int64  `json:"create_time"`
 }
 
 func (fab *FabricSrv) GetAlignmentList(ctx *gin.Context) {

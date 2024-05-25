@@ -23,7 +23,7 @@ type ReqCarList struct {
 
 type RespCarList struct {
 	ID          uint   `json:"id"`
-	CreateTime  int64  `json:"createTime"`
+	CreateTime  int64  `json:"create_time"`
 	CarName     string `json:"carName"`     // 车名
 	CarType     string `json:"carType"`     // 车类型
 	CarColor    string `json:"carColor"`    // 车颜色

@@ -25,7 +25,7 @@ type ReqAccidentList struct {
 
 type RespAccidentList struct {
 	ID               uint   `json:"id"`
-	CreateTime       int64  `json:"createTime"`
+	CreateTime       int64  `json:"create_time"`
 	AccidentName     string `json:"accidentName"`
 	AccidentType     string `json:"accidentType"`
 	Driver           string `json:"driver"`

@@ -23,6 +23,7 @@ type ReqActionList struct {
 
 type RespActionList struct {
 	ID           uint   `json:"id"`
+	CreateTime   int64  `json:"create_time"`
 	ActionName   string `json:"actionName"`
 	ActionType   string `json:"actionType"`
 	Driver       string `json:"driver"`
