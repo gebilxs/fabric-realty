@@ -47,23 +47,5 @@
 
 - `network` : Hyperledger Fabric 区块链网络配置
 
-## 功能流程
 
-管理员为用户业主创建房地产。
-
-业主查看名下房产信息。
-
-业主发起销售，所有人都可查看销售列表，购买者购买后进行扣款操作，并等待业主确认收款，交易完成后，更新房产持有人。在有效期期间可以随时取消交易，有效期到期后自动关闭交易。
-
-业主发起捐赠，指定受赠人，受赠人确认接收受赠前，双方可取消捐赠/受赠。
-
-## 演示效果
-
-![login](https://user-images.githubusercontent.com/55381228/159389012-4d3d8617-2bd8-4d9c-bacf-452f97cc9bbc.png)
-
-![addreal](https://user-images.githubusercontent.com/55381228/159389026-9ca119bd-fd5f-4b89-b003-a09907ce0cdf.png)
-
-![info](https://user-images.githubusercontent.com/55381228/159389035-b84f2de1-18f9-48a7-93f5-db9dd20a5a4c.png)
-
-![explorer](https://user-images.githubusercontent.com/55381228/159389002-0dbe329a-09aa-4aaf-aba8-4a98e4fdcc39.png)
 
