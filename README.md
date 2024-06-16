@@ -52,5 +52,13 @@
 包含 1.登录注册2.道路信息管理（包含高德API请求可视化）3.音乐信息（使用MINIO）4.其他业务功能信息，可扩展性极强，可以随时改变5.Fabric区块链后端使用智能合约实现交易和捐赠功能
 其中所有中间件Mysql和MINIO都是用docker-compose部署
 包含所有的区块链服务DockerFile实现
+## 截图展示
+![image](https://github.com/gebilxs/fabric-realty/assets/87237189/86225240-9fa2-431c-831a-570a8d1c72d5)
+![image](https://github.com/gebilxs/fabric-realty/assets/87237189/f76dcb34-6fec-429b-852c-a29f3481d13c)
+![image](https://github.com/gebilxs/fabric-realty/assets/87237189/3199f3f5-e41b-4f92-a52c-fcec93268545)
+![image](https://github.com/gebilxs/fabric-realty/assets/87237189/5708e0df-6f68-4472-812e-b3cb7c92f119)
+![image](https://github.com/gebilxs/fabric-realty/assets/87237189/06ecb39a-59f8-4f5f-90cd-f01efd55ec0f)
+![image](https://github.com/gebilxs/fabric-realty/assets/87237189/aa9b7479-7904-4d94-9636-b9237c24d255)
+![image](https://github.com/gebilxs/fabric-realty/assets/87237189/34247f08-2a1f-4095-88b7-dcd9d8c8d4fd)
 
 
