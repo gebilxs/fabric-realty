@@ -1,5 +1,5 @@
 > 🚀 本项目使用 Hyperledger Fabric 构建底层区块链网络, go 编写智能合约，应用层使用 gin+fabric-sdk-go ，前端使用
-> vue+element-ui
+> vue3+element-ui
 
 ## 手动部署
 
@@ -61,4 +61,4 @@
 ![image](https://github.com/gebilxs/fabric-realty/assets/87237189/aa9b7479-7904-4d94-9636-b9237c24d255)
 ![image](https://github.com/gebilxs/fabric-realty/assets/87237189/34247f08-2a1f-4095-88b7-dcd9d8c8d4fd)
 
-
+如需前端可以联系gebilxs@gmail.com
