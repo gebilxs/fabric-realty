@@ -1,27 +1,3 @@
-# 基于 Hyperledger Fabric 的房地产交易系统
-
-本项目是一个基于 Hyperledger Fabric 的房地产交易系统，实现了房产登记和交易的业务流程。
-
-系统采用联盟链技术，由不动产登记机构、交易平台和银行三个组织共同维护。
-
-> 🎓 提供项目教学及问题解答服务，欢迎通过以下方式联系：
-
-<img src="https://github.com/user-attachments/assets/ea93572c-6c05-4751-bde7-35a58fe083f1" width="520" alt="gopher云原生公众号二维码">
-
-👆 扫码或搜索关注公众号：**gopher云原生**
-
-## 本地开发
-
-参考：[本地开发指南](dev.md)
-
-推荐首次使用时选择快速部署方式，以便快速体验系统功能，往下看 👇
-
-## 快速部署
-
-### 环境要求
-
-- Docker
-- Docker Compose
 
 ### 部署步骤
 
